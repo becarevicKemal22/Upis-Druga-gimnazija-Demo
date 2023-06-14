@@ -1,6 +1,10 @@
 <template>
-  <TheHeader></TheHeader>
-  <base-input required v-model="test">Ime</base-input>
+  <div class="p-5 md:p-10">
+    <TheHeader></TheHeader>
+    <main class="mt-10 md:mt-16">
+      <base-input required>Ime</base-input>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -11,16 +15,6 @@ import BaseInput from "@/components/BaseInput.vue";
 export default {
   name: 'App',
   components: {BaseInput, TheHeader},
-  data(){
-    return {
-      test: '',
-    }
-  },
-  watch: {
-    test(){
-      console.log(this.test);
-    }
-  }
 }
 </script>
 

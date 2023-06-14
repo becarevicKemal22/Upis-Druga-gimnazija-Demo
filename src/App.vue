@@ -1,26 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <TheHeader></TheHeader>
+  <base-input required v-model="test">Ime</base-input>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import TheHeader from "@/components/TheHeader.vue";
+import BaseInput from "@/components/BaseInput.vue";
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components: {BaseInput, TheHeader},
+  data(){
+    return {
+      test: '',
+    }
+  },
+  watch: {
+    test(){
+      console.log(this.test);
+    }
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="p-5 md:p-10">
     <TheHeader></TheHeader>
     <main class="mt-10 md:mt-16">
-      <base-input required>Ime</base-input>
+      <StudentForm></StudentForm>
     </main>
   </div>
 </template>
@@ -10,11 +10,11 @@
 <script>
 
 import TheHeader from "@/components/TheHeader.vue";
-import BaseInput from "@/components/BaseInput.vue";
+import StudentForm from "@/components/StudentForm.vue";
 
 export default {
   name: 'App',
-  components: {BaseInput, TheHeader},
+  components: {StudentForm, TheHeader},
 }
 </script>
 

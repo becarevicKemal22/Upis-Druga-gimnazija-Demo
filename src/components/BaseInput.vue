@@ -2,6 +2,7 @@
 defineProps({
   required: Boolean,
   modelValue: String,
+  error: String,
 });
 
 defineEmits(['update:modelValue']);
@@ -14,6 +15,7 @@ defineEmits(['update:modelValue']);
       <p v-if="required" class="text-red-500 text-sm">*</p>
     </span>
     <input type="text" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" class="p-1 text-sm text-gray-600 appearance-none outline outline-1 outline-gray-400 rounded-sm focus:ring-teal-500 focus:ring-opacity-70 focus:ring-2 focus:ring-offset-2 focus:outline-none transition-all">
+    <p v-if="error" class="text-sm font-open-sans font-light text-red-500">{{error}}</p>
   </div>
 </template>
 

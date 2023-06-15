@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from "vue";
 
-defineProps(['required']);
+defineProps(['required', 'error']);
 
 const emit = defineEmits(['updateDate']);
 
@@ -29,6 +29,17 @@ const handleBackspace = (event) => {
   }
 }
 
+const handleInputSkip = (event) => {
+  //skips to the next input element if two characters have been entered for month or day
+  if(event.target.value.length === 2){
+    if(event.target.id === 'mjesec'){
+      godina.value.focus();
+    }else{
+      mjesec.value.focus();
+    }
+  }
+}
+
 const dan = ref(0);
 const mjesec = ref(0);
 const godina = ref(0);
@@ -42,11 +53,11 @@ const godina = ref(0);
       <p v-if="required" class="text-red-500 text-sm">*</p>
     </span>
     <div class="flex outline outline-1 outline-gray-400 items-center rounded-sm w-fit">
-      <input type="text" ref="dan" @blur="updateDate" maxlength="2"
+      <input type="text" ref="dan" @blur="updateDate" @input="handleInputSkip" maxlength="2"
              class="p-1 text-sm w-10 text-center text-gray-600 appearance-none rounded-sm focus:outline-none"
              placeholder="dd">
       <span class="text-teal-500">/</span>
-      <input type="text" ref="mjesec" id="mjesec" @blur="updateDate" @keyup.delete="handleBackspace" maxlength="2"
+      <input type="text" ref="mjesec" id="mjesec" @blur="updateDate" @input="handleInputSkip" @keyup.delete="handleBackspace" maxlength="2"
              class="p-1 text-sm w-10 text-center text-gray-600 appearance-none rounded-sm focus:outline-none"
              placeholder="mm">
       <span class="text-teal-500">/</span>
@@ -54,6 +65,7 @@ const godina = ref(0);
              class="p-1 text-sm w-14 text-center text-gray-600 appearance-none rounded-sm focus:outline-none"
              placeholder="gggg">
     </div>
+    <p v-if="error" class="text-sm font-open-sans font-light text-red-500">{{error}}</p>
   </div>
 </template>
 

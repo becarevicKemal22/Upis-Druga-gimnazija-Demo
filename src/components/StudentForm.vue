@@ -4,7 +4,11 @@ import BaseInput from "@/components/BaseInput.vue";
 import DatePicker from "@/components/DatePicker.vue";
 import BaseButton from "@/components/BaseButton.vue";
 
-import {ref,reactive} from "vue";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+import {ref, reactive} from "vue";
 
 const ime = ref('');
 const prezime = ref('');
@@ -32,21 +36,45 @@ const clearErrors = () => {
   errors.datum = null;
 }
 
-const submitForm = () => {
+function validateForm() {
   clearErrors();
-  if(ime.value.length === 0){
+  let isValid = true;
+  if (ime.value.length === 0) {
     errors.ime = "Ime mora biti popunjeno!";
+    isValid = false;
   }
-  if(prezime.value.length === 0){
+  if (prezime.value.length === 0) {
     errors.prezime = "Prezime mora biti popunjeno!";
+    isValid = false;
   }
-  if(datum.dan !== null && datum.mjesec !== null && datum.godina !== null){
-    if(datum.dan < 1 || datum.dan > 31 || datum.mjesec < 1 || datum.mjesec > 12 || datum.godina.length !== 4){
+  if (datum.dan !== null && datum.mjesec !== null && datum.godina !== null) {
+    if (datum.dan < 1 || datum.dan > 31 || datum.mjesec < 1 || datum.mjesec > 12 || datum.godina.length !== 4) {
       errors.datum = "Unesite validan datum rođenja!"
+      isValid = false;
     }
-  }else{
+  } else {
     errors.datum = "Datum rođenja mora biti popunjen!";
+    isValid = false;
   }
+  return isValid;
+}
+
+const submitForm = async () => {
+  if(!validateForm()){
+    return;
+  }
+  // const formattedDate = datum.dan + '. ' + datum.mjesec + '. ' + datum.godina + '.';
+  // const data = {
+  //   ime: ime.value,
+  //   prezime: prezime.value,
+  //   datumRodjenja: formattedDate,
+  // }
+  pdfMake.createPdf({
+    content: [
+      'First paragraph',
+      'Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines'
+    ]}).download();
+
 }
 
 </script>

@@ -1,8 +1,8 @@
 <script setup>
 
-import BaseInput from "@/components/BaseInput.vue";
-import DatePicker from "@/components/DatePicker.vue";
-import BaseButton from "@/components/BaseButton.vue";
+import BaseInput from "@/components/UI/BaseInput.vue";
+import DatePicker from "@/components/UI/DatePicker.vue";
+import BaseButton from "@/components/UI/BaseButton.vue";
 
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";

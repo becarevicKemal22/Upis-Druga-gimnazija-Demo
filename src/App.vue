@@ -9,7 +9,7 @@
 
 <script>
 
-import TheHeader from "@/components/TheHeader.vue";
+import TheHeader from "@/components/Layout/TheHeader.vue";
 import StudentForm from "@/components/StudentForm.vue";
 
 export default {

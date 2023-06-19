@@ -9,6 +9,7 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import {ref, reactive} from "vue";
+import BaseCheckbox from "@/components/UI/BaseCheckbox.vue";
 
 const ime = ref('');
 const prezime = ref('');
@@ -85,6 +86,7 @@ const submitForm = async () => {
     <base-input required :error="errors.prezime" v-model="prezime">Prezime</base-input>
     <date-picker @update-date="updateDate" :error="errors.datum">Datum rođenja</date-picker>
     <base-button @click="submitForm">Prijava</base-button>
+    <base-checkbox>Test</base-checkbox>
   </form>
 </template>
 

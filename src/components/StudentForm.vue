@@ -10,7 +10,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import {ref, reactive} from "vue";
 import BaseCheckbox from "@/components/UI/BaseCheckbox.vue";
-import ProgramSelector from "@/components/UI/ProgramSelector.vue";
+import MultipleChoice from "@/components/UI/MultipleChoice.vue";
 
 const ime = ref('');
 const prezime = ref('');
@@ -88,7 +88,10 @@ const submitForm = async () => {
     <base-input required :error="errors.ime" v-model="ime">Ime</base-input>
     <base-input required :error="errors.prezime" v-model="prezime">Prezime</base-input>
     <date-picker @update-date="updateDate" :error="errors.datum">Datum rođenja</date-picker>
-    <program-selector v-model="program">Program</program-selector>
+    <multiple-choice v-model="program" :values="['Gimnazijski program', 'IB program', 'IT program']">
+      Izaberite program
+      <template #description>Izaberite program na koji ste se upisali putem EMIS-a</template>
+    </multiple-choice>
     <base-button @click="submitForm">Prijava</base-button>
     <base-checkbox>Test</base-checkbox>
   </form>

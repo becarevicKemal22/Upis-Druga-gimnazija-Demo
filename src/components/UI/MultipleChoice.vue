@@ -3,9 +3,15 @@
 import BaseCheckbox from "@/components/UI/BaseCheckbox.vue";
 import {reactive, watch} from "vue";
 
+const props = defineProps(['values', 'description']);
 const emit = defineEmits(['update:modelValue']);
 
-const inputs = reactive([false, false, false]);
+const inputs = reactive([]);
+const len = () => props.values.length;
+for(let i = 0; i < len; i++){
+  inputs.push(false);
+}
+
 let selectedOption = null;
 let triggeredByOwn = false;
 const values = ['Gimnazijski program', 'IB program', 'IT program'];
@@ -27,7 +33,6 @@ watch(inputs, () => {
   let index = inputs.findIndex((value, index) => {
     return value === true && index !== selectedOption;
   })
-  console.log(index);
   if(index === -1){
     selectedOption = null;
     return;
@@ -42,13 +47,10 @@ watch(inputs, () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-0.5 font-open-sans text-gray-500">
+  <div class="flex flex-col gap-1 font-open-sans text-gray-500">
     <slot></slot>
-    <p class="text-sm text-gray-400">Izaberite jednu opciju</p>
-    <base-checkbox v-for="(value, index) in values" :key="value" v-model="inputs[index]">{{ value + ' ' + index }}</base-checkbox>
-    <base-checkbox v-model="inputs[0]">Gimnazijski program</base-checkbox>
-    <base-checkbox v-model="inputs[1]">IB program</base-checkbox>
-    <base-checkbox v-model="inputs[2]">IT program</base-checkbox>
+    <p class="text-sm text-gray-400 mb-1.5"><slot name="description"></slot></p>
+    <base-checkbox v-for="(value, index) in values" :key="value" v-model="inputs[index]">{{ value }}</base-checkbox>
   </div>
 </template>
 

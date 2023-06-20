@@ -10,6 +10,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import {ref, reactive} from "vue";
 import BaseCheckbox from "@/components/UI/BaseCheckbox.vue";
+import ProgramSelector from "@/components/UI/ProgramSelector.vue";
 
 const ime = ref('');
 const prezime = ref('');
@@ -18,18 +19,19 @@ const datum = reactive({
   mjesec: null,
   godina: null,
 });
-
-const errors = reactive({
-  ime: null,
-  prezime: null,
-  datum: null
-})
+const program = ref('');
 
 const updateDate = (date) => {
   datum.dan = date.dan;
   datum.mjesec = date.mjesec;
   datum.godina = date.godina;
 }
+
+const errors = reactive({
+  ime: null,
+  prezime: null,
+  datum: null
+})
 
 const clearErrors = () => {
   errors.ime = null;
@@ -38,6 +40,7 @@ const clearErrors = () => {
 }
 
 function validateForm() {
+  console.log(program.value);
   clearErrors();
   let isValid = true;
   if (ime.value.length === 0) {
@@ -85,6 +88,7 @@ const submitForm = async () => {
     <base-input required :error="errors.ime" v-model="ime">Ime</base-input>
     <base-input required :error="errors.prezime" v-model="prezime">Prezime</base-input>
     <date-picker @update-date="updateDate" :error="errors.datum">Datum rođenja</date-picker>
+    <program-selector v-model="program">Program</program-selector>
     <base-button @click="submitForm">Prijava</base-button>
     <base-checkbox>Test</base-checkbox>
   </form>

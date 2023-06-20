@@ -54,13 +54,13 @@ const godina = ref(0);
     </span>
     <div class="flex outline outline-1 outline-gray-400 items-center rounded-sm w-fit focus-within:ring-2 ring-offset-2 ring-blue-500 ring-opacity-75 transition">
       <input type="text" ref="dan" @blur="updateDate" @input="handleInputSkip" maxlength="2"
-             class="p-1 border-none focus:border-none text-sm w-10 text-center text-gray-600 appearance-none rounded-sm focus:outline-none"
+             class="p-1 border-none focus:ring-0 text-sm w-10 text-center text-gray-600 appearance-none rounded-sm focus:outline-none"
              placeholder="dd">
-      <span class="text-teal-500">/</span>
+      <span class="text-blue-500">/</span>
       <input type="text" ref="mjesec" id="mjesec" @blur="updateDate" @input="handleInputSkip" @keyup.delete="handleBackspace" maxlength="2"
-             class="p-1 border-none focus:border-none text-sm w-10 text-center text-gray-600 appearance-none rounded-sm focus:outline-none"
+             class="p-1 border-none focus:ring-0 text-sm w-10 text-center text-gray-600 appearance-none rounded-sm focus:outline-none"
              placeholder="mm">
-      <span class="text-teal-500">/</span>
+      <span class="text-blue-500">/</span>
       <input type="text" ref="godina" id="godina" @blur="updateDate" @keyup.delete="handleBackspace" maxlength="4"
              class="p-1 border-0 focus:ring-0 text-sm w-14 text-center text-gray-600 rounded-sm"
              placeholder="gggg">

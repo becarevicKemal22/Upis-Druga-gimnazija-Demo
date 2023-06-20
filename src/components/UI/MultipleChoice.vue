@@ -14,12 +14,11 @@ for(let i = 0; i < len; i++){
 
 let selectedOption = null;
 let triggeredByOwn = false;
-const values = ['Gimnazijski program', 'IB program', 'IT program'];
 
 watch(inputs, () => {
   if(selectedOption === null){
     selectedOption = inputs.findIndex(input => input === true);
-    emit("update:modelValue", values[selectedOption]);
+    emit("update:modelValue", props.values[selectedOption]);
     return;
   }
 
@@ -41,7 +40,7 @@ watch(inputs, () => {
   inputs[selectedOption] = false;
   selectedOption = index;
   triggeredByOwn = true;
-  emit("update:modelValue", values[selectedOption]);
+  emit("update:modelValue", props.values[selectedOption]);
 })
 
 </script>

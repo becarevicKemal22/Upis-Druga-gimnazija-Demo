@@ -117,7 +117,7 @@ const submitForm = async () => {
     <jezik-selector v-model="jezici"></jezik-selector>
     <div class="flex flex-col gap-3 font-open-sans text-gray-500">
       <p>DSD Program</p>
-      <base-checkbox :model-value="dsd">Odaberite ovu opciju ukoliko želite pohađati DSD program</base-checkbox>
+      <base-checkbox :model-value="dsd">Odaberite ovu opciju ukoliko želite pohađati DSD program.</base-checkbox>
     </div>
 
     <base-button @click="submitForm">Prijava</base-button>

@@ -9,6 +9,8 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+import {saveData} from "@/composables/saveData";
+
 import {ref, reactive} from "vue";
 import MultipleChoice from "@/components/UI/MultipleChoice.vue";
 import NacionalniSmjerSelector from "@/components/NacionalniSmjerSelector.vue";
@@ -44,6 +46,54 @@ function updateVJDKR(izbor) {
   vjDKR.value = izbor;
 }
 
+//Database and submission
+// function saveData(data){
+//   const db = getDatabase();
+//   console.log(db);
+//   set(ref(db, 'gimnazijski/' + 'test'), data);
+// }
+
+const submitForm = async () => {
+  if (!validateForm()) {
+    return;
+  }
+  const formattedDate = datum.dan + '. ' + datum.mjesec + '. ' + datum.godina + '.';
+  let data = {
+    "Ime i prezime": imeUcenika.value,
+    "Ime roditelja 1": imeRoditelja1.value,
+    "Ime roditelja 2": imeRoditelja2.value,
+    "Datum rođenja": formattedDate,
+    "Program": program.value,
+    "Vjeronauka ili DKR": vjDKR.value,
+    "Prvi strani jezik": jezici.value[0],
+    "Drugi strani jezik": jezici.value[1],
+  }
+  if(dsd.value){
+    data = {
+      ...data,
+      "DSD": "DA",
+    }
+  }
+  if(program.value === 'Gimnazijski program'){
+    data = {
+      ...data,
+      "Prvi izbor": smjer.value.prvi,
+      "Drugi izbor": smjer.value.drugi,
+      "Treci izbor": smjer.value.treci,
+    }
+  }
+  console.log(data);
+  saveData(data);
+  pdfMake.createPdf({
+    content: [
+      'First paragraph',
+      'Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines'
+    ]
+  }).download();
+
+}
+
+//Errors and validation
 const errors = reactive({});
 
 const clearErrors = () => {
@@ -120,27 +170,7 @@ function validateForm() {
     errors.jezici = 'Morate odabrati 2 različita jezika';
     formIsValid = false;
   }
-  console.log(jezici.value);
   return formIsValid;
-}
-
-const submitForm = async () => {
-  if (!validateForm()) {
-    return;
-  }
-  // const formattedDate = datum.dan + '. ' + datum.mjesec + '. ' + datum.godina + '.';
-  // const data = {
-  //   ime: ime.value,
-  //   prezime: prezime.value,
-  //   datumRodjenja: formattedDate,
-  // }
-  pdfMake.createPdf({
-    content: [
-      'First paragraph',
-      'Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines'
-    ]
-  }).download();
-
 }
 
 </script>

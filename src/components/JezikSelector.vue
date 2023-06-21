@@ -17,7 +17,6 @@ const compInputs = computed(() => {
 })
 
 watch(() => props.isIB, (value, oldValue) => {
-  console.log(value, oldValue);
   if(value !== oldValue){
     inputs[0] = '';
     inputs[1] = '';

@@ -3,7 +3,7 @@
 import BaseCheckbox from "@/components/UI/BaseCheckbox.vue";
 import {reactive, watch} from "vue";
 
-const props = defineProps(['values', 'description']);
+const props = defineProps(['values', 'program', 'error']);
 const emit = defineEmits(['update:modelValue']);
 
 const inputs = reactive([]);
@@ -50,6 +50,7 @@ watch(inputs, () => {
     <slot></slot>
     <p class="text-sm text-gray-400 mb-1.5"><slot name="description"></slot></p>
     <base-checkbox v-for="(value, index) in values" :key="value" v-model="inputs[index]">{{ value }}</base-checkbox>
+    <p v-if="error" class="text-sm font-open-sans font-light text-red-500">{{error}}</p>
   </div>
 </template>
 

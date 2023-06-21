@@ -4,6 +4,7 @@ import MultipleChoice from "@/components/UI/MultipleChoice.vue";
 import {reactive, watch} from "vue";
 
 const emit = defineEmits(['update']);
+defineProps(['error'])
 
 const inputs = reactive([]);
 
@@ -38,6 +39,7 @@ watch(inputs, () => {
     <multiple-choice :values="options" v-model="inputs[2]">
       <template #description>3. izbor</template>
     </multiple-choice>
+    <p v-if="error" class="text-sm font-open-sans font-light text-red-500">{{error}}</p>
   </div>
 </template>
 

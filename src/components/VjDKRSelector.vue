@@ -4,6 +4,7 @@ import MultipleChoice from "@/components/UI/MultipleChoice.vue";
 import {ref, watch} from "vue";
 
 const emit = defineEmits(['update']);
+defineProps(['error']);
 
 const izbor = ref('');
 const izborVjeronauke = ref('');
@@ -30,6 +31,7 @@ watch(izborVjeronauke, () => {
     <multiple-choice v-if="izbor === 'Vjeronauka'" v-model="izborVjeronauke" :values="opcijeVjeronauka">
       <template #description>Odaberite koju vjeronauku želite da pohađate</template>
     </multiple-choice>
+    <p v-if="error" class="text-sm font-open-sans font-light text-red-500">{{error}}</p>
   </div>
 </template>
 

@@ -13,7 +13,7 @@ const jezici = [
     'Arapski',
 ]
 
-defineProps(['modelValue'])
+defineProps(['modelValue', 'error'])
 const emit = defineEmits(['update:modelValue'])
 const inputs = reactive(['', '']);
 
@@ -27,11 +27,12 @@ watch(inputs, () => {
   <div class="flex flex-col gap-3 font-open-sans text-gray-500">
     <p>Odaberite prvi i drugi strani jezik</p>
     <multiple-choice v-model="inputs[0]" :values="jezici">
-      <template #description>Ukoliko odaberete vjeronauku, biće vam ponuđene dalje opcije</template>
+      <template #description>Prvi strani jezik</template>
     </multiple-choice>
     <multiple-choice v-model="inputs[1]" :values="jezici">
-      <template #description>Odaberite koju vjeronauku želite da pohađate</template>
+      <template #description>Drugi strani jezik</template>
     </multiple-choice>
+    <p v-if="error" class="text-sm font-open-sans font-light text-red-500">{{error}}</p>
   </div>
 </template>
 

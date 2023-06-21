@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",
+    "@vue/reactivity": "^3.3.4",
     "core-js": "^3.8.3",
     "pdfmake": "^0.2.7",
     "vue": "^3.2.13"

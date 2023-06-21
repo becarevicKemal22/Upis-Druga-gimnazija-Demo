@@ -120,6 +120,7 @@ function validateForm() {
     errors.jezici = 'Morate odabrati 2 različita jezika';
     formIsValid = false;
   }
+  console.log(jezici.value);
   return formIsValid;
 }
 
@@ -157,7 +158,7 @@ const submitForm = async () => {
     <nacionalni-smjer-selector :error="errors.smjer" v-if="program === 'Gimnazijski program'"
                                @update="updateSmjer"></nacionalni-smjer-selector>
     <vj-d-k-r-selector :error="errors.vjDKR" @update="updateVJDKR"></vj-d-k-r-selector>
-    <jezik-selector :error="errors.jezici" v-model="jezici"></jezik-selector>
+    <jezik-selector :isIB="program === 'IB program'" :error="errors.jezici" v-model="jezici"></jezik-selector>
     <div class="flex flex-col gap-3 font-open-sans text-gray-500">
       <p>DSD Program</p>
       <base-checkbox :model-value="dsd">Odaberite ovu opciju ukoliko želite pohađati DSD program.</base-checkbox>

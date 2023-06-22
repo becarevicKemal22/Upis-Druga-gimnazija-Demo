@@ -8,6 +8,9 @@ module.exports = {
     extend: {
         fontFamily: {
             'open-sans': ['"Open Sans"'],
+        },
+        fontSize: {
+            'smaller': "0.8rem",
         }
     },
   },

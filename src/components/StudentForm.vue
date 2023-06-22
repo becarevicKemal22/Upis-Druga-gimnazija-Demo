@@ -17,6 +17,7 @@ import NacionalniSmjerSelector from "@/components/NacionalniSmjerSelector.vue";
 import VjDKRSelector from "@/components/VjDKRSelector.vue";
 import JezikSelector from "@/components/JezikSelector.vue";
 import BaseCheckbox from "@/components/UI/BaseCheckbox.vue";
+import BaseToast from "@/components/UI/BaseToast.vue";
 
 const imeUcenika = ref('');
 const imeRoditelja1 = ref('');
@@ -173,6 +174,8 @@ function validateForm() {
   return formIsValid;
 }
 
+const shouldShow = ref(true);
+
 </script>
 
 <template>
@@ -195,6 +198,10 @@ function validateForm() {
     </div>
 
     <base-button @click="submitForm">Prijava</base-button>
+    <base-toast :show="shouldShow" @close="shouldShow = false" variant="success">
+      Information
+      <template #description>This is a very very description</template>
+    </base-toast>
   </form>
 </template>
 

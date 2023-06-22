@@ -2,6 +2,9 @@ import {getDatabase, ref, set} from "firebase/database";
 
 export function saveData(data){
     const db = getDatabase();
-    set(ref(db, 'gimnazijski/' + data["Ime i prezime"]), data)
+    const path = data["Program"].toLowerCase().replace(/ /g, '_') + '/' + data["Ime i prezime"];
+    const noProgram = Object.assign({}, data);
+    delete noProgram["Program"];
+    set(ref(db, path), noProgram)
     console.log("Data set successfully");
 }

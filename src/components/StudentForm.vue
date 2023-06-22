@@ -31,7 +31,7 @@ const program = ref('');
 const smjer = ref(null);
 const vjDKR = ref(null);
 const jezici = ref([]);
-const dsd = ref();
+const dsd = ref(false);
 
 const updateDate = (date) => {
   datum.dan = date.dan;
@@ -47,6 +47,11 @@ function updateVJDKR(izbor) {
   vjDKR.value = izbor;
 }
 
+const showToast = ref(false);
+const toastTitle = ref('');
+const toastDescription = ref('');
+const toastVariant = ref('');
+
 //Database and submission
 // function saveData(data){
 //   const db = getDatabase();
@@ -56,6 +61,10 @@ function updateVJDKR(izbor) {
 
 const submitForm = async () => {
   if (!validateForm()) {
+    toastTitle.value = "Greška!";
+    toastDescription.value = "Molimo Vas da ispravite podatke.";
+    toastVariant.value = "error";
+    showToast.value = true;
     return;
   }
   const formattedDate = datum.dan + '. ' + datum.mjesec + '. ' + datum.godina + '.';
@@ -85,6 +94,10 @@ const submitForm = async () => {
   }
   console.log(data);
   saveData(data);
+  toastTitle.value = "Dobrodošli!";
+  toastDescription.value = "Uspješno ste se prijavili.";
+  toastVariant.value = "success";
+  showToast.value = true;
   pdfMake.createPdf({
     content: [
       'First paragraph',
@@ -174,8 +187,6 @@ function validateForm() {
   return formIsValid;
 }
 
-const shouldShow = ref(true);
-
 </script>
 
 <template>
@@ -194,13 +205,13 @@ const shouldShow = ref(true);
     <jezik-selector :isIB="program === 'IB program'" :error="errors.jezici" v-model="jezici"></jezik-selector>
     <div class="flex flex-col gap-3 font-open-sans text-gray-500">
       <p>DSD Program</p>
-      <base-checkbox :model-value="dsd">Odaberite ovu opciju ukoliko želite pohađati DSD program.</base-checkbox>
+      <base-checkbox v-model="dsd">Odaberite ovu opciju ukoliko želite pohađati DSD program.</base-checkbox>
     </div>
 
     <base-button @click="submitForm">Prijava</base-button>
-    <base-toast :show="shouldShow" @close="shouldShow = false" variant="success">
-      Information
-      <template #description>This is a very very description</template>
+    <base-toast :show="showToast" @close="showToast = false" :variant="toastVariant">
+      {{ toastTitle }}
+      <template #description>{{ toastDescription }}</template>
     </base-toast>
   </form>
 </template>

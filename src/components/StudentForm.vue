@@ -4,10 +4,7 @@ import BaseInput from "@/components/UI/BaseInput.vue";
 import DatePicker from "@/components/UI/DatePicker.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
 
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import generatePDF from "@/composables/generatePDF";
 
 import {saveData} from "@/composables/saveData";
 
@@ -60,6 +57,7 @@ const toastVariant = ref('');
 // }
 
 const submitForm = async () => {
+
   if (!validateForm()) {
     toastTitle.value = "Greška!";
     toastDescription.value = "Molimo Vas da ispravite podatke.";
@@ -78,13 +76,13 @@ const submitForm = async () => {
     "Prvi strani jezik": jezici.value[0],
     "Drugi strani jezik": jezici.value[1],
   }
-  if(dsd.value){
+  if (dsd.value) {
     data = {
       ...data,
       "DSD": "DA",
     }
   }
-  if(program.value === 'Gimnazijski program'){
+  if (program.value === 'Gimnazijski program') {
     data = {
       ...data,
       "Prvi izbor": smjer.value.prvi,
@@ -94,16 +92,11 @@ const submitForm = async () => {
   }
   console.log(data);
   saveData(data);
+  generatePDF(data);
   toastTitle.value = "Dobrodošli!";
   toastDescription.value = "Uspješno ste se prijavili.";
   toastVariant.value = "success";
   showToast.value = true;
-  pdfMake.createPdf({
-    content: [
-      'First paragraph',
-      'Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines'
-    ]
-  }).download();
 
 }
 
@@ -120,17 +113,17 @@ function filled(ref) {
   return !(ref.value === '' || !ref.value);
 }
 
-function filledVal(value){
+function filledVal(value) {
   return !(value === '' || !value);
 }
 
-function validateSmjer(smjerovi){
+function validateSmjer(smjerovi) {
   const values = Object.values(smjerovi.value);
   const uniqueValues = new Set(values);
   return values.length === uniqueValues.size;
 }
 
-function validateJezici(jezici){
+function validateJezici(jezici) {
   const uniqueValues = new Set(jezici.value);
   return jezici.value.length === uniqueValues.size;
 }
@@ -152,35 +145,35 @@ function validateForm() {
     errors.imeRoditelja2 = requiredMessage;
     formIsValid = false;
   }
-  if(!filledVal(datum.dan) || !filledVal(datum.mjesec) || !filledVal(datum.godina)){
+  if (!filledVal(datum.dan) || !filledVal(datum.mjesec) || !filledVal(datum.godina)) {
     errors.datum = requiredMessage;
     formIsValid = false;
   }
-  if(!filled(program)){
+  if (!filled(program)) {
     errors.program = requiredMessage;
     formIsValid = false;
   }
-  if(program.value === 'Gimnazijski program'){
-    if(!filled(smjer)){
+  if (program.value === 'Gimnazijski program') {
+    if (!filled(smjer)) {
       errors.smjer = 'Morate odabrati 3 smjera';
       formIsValid = false;
-    }else if(!validateSmjer(smjer)){
+    } else if (!validateSmjer(smjer)) {
       errors.smjer = 'Odabir se ne smije ponavljati';
       formIsValid = false;
     }
   }
-  if(!filled(vjDKR)){
+  if (!filled(vjDKR)) {
     errors.vjDKR = 'Polje / polja moraju biti popunjena';
     formIsValid = false;
   }
-  if(jezici.value.length < 2 || jezici.value[0] === '' || jezici.value[1] === ''){
-    if(program.value === 'IB program'){
+  if (jezici.value.length < 2 || jezici.value[0] === '' || jezici.value[1] === '') {
+    if (program.value === 'IB program') {
       errors.jezici = 'Morate odabrati drugi strani jezik';
-    }else{
+    } else {
       errors.jezici = 'Morate odabrati strane jezike';
     }
     formIsValid = false;
-  }else if(!validateJezici(jezici)){
+  } else if (!validateJezici(jezici)) {
     errors.jezici = 'Morate odabrati 2 različita jezika';
     formIsValid = false;
   }
@@ -195,7 +188,8 @@ function validateForm() {
     <base-input v-model="imeRoditelja1" :error="errors.imeRoditelja1">Ime i prezime roditelja/staratelja</base-input>
     <base-input v-model="imeRoditelja2" :error="errors.imeRoditelja2">Ime i prezime roditelja/staratelja</base-input>
     <date-picker @update-date="updateDate" :error="errors.datum">Datum rođenja</date-picker>
-    <multiple-choice v-model="program" :error="errors.program" :values="['Gimnazijski program', 'IB program', 'IT program']">
+    <multiple-choice v-model="program" :error="errors.program"
+                     :values="['Gimnazijski program', 'IB program', 'IT program']">
       Izaberite program
       <template #description>Izaberite program na koji ste se upisali putem EMIS-a</template>
     </multiple-choice>

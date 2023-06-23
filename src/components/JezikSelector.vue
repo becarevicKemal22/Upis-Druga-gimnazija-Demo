@@ -52,7 +52,7 @@ watch(inputs, () => {
 
 <template>
   <div class="flex flex-col gap-3 font-open-sans text-gray-500">
-    <p>Odaberite prvi i drugi strani jezik</p>
+    <p>Odaberite {{ isIB ? '' : 'prvi i' }} drugi strani jezik</p>
     <multiple-choice v-if="!isIB" v-model="inputs[0]" :values="jezici">
       <template #description>Prvi strani jezik</template>
     </multiple-choice>

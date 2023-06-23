@@ -17,8 +17,11 @@ import BaseCheckbox from "@/components/UI/BaseCheckbox.vue";
 import BaseToast from "@/components/UI/BaseToast.vue";
 
 const imeUcenika = ref('');
+const brojTelefona1 = ref('');
 const imeRoditelja1 = ref('');
+const brojTelefona2 = ref('');
 const imeRoditelja2 = ref('');
+const brojTelefona3 = ref('');
 const datum = reactive({
   dan: null,
   mjesec: null,
@@ -68,8 +71,11 @@ const submitForm = async () => {
   const formattedDate = datum.dan + '. ' + datum.mjesec + '. ' + datum.godina + '.';
   let data = {
     "Ime i prezime": imeUcenika.value,
+    "Tel ucenika": brojTelefona1.value,
     "Ime roditelja 1": imeRoditelja1.value,
+    "Tel roditelja 1": brojTelefona2.value,
     "Ime roditelja 2": imeRoditelja2.value,
+    "Tel roditelja 2": brojTelefona3.value,
     "Datum rođenja": formattedDate,
     "Program": program.value,
     "Vjeronauka ili DKR": vjDKR.value,
@@ -137,12 +143,24 @@ function validateForm() {
     errors.imeUcenika = requiredMessage;
     formIsValid = false;
   }
+  if (!filled(brojTelefona1)) {
+    errors.brojTelefona1 = requiredMessage;
+    formIsValid = false;
+  }
   if (!filled(imeRoditelja1)) {
     errors.imeRoditelja1 = requiredMessage;
     formIsValid = false;
   }
+  if (!filled(brojTelefona2)) {
+    errors.brojTelefona2 = requiredMessage;
+    formIsValid = false;
+  }
   if (!filled(imeRoditelja2)) {
     errors.imeRoditelja2 = requiredMessage;
+    formIsValid = false;
+  }
+  if (!filled(brojTelefona3)) {
+    errors.brojTelefona3 = requiredMessage;
     formIsValid = false;
   }
   if (!filledVal(datum.dan) || !filledVal(datum.mjesec) || !filledVal(datum.godina)) {
@@ -185,8 +203,11 @@ function validateForm() {
 <template>
   <form @submit.prevent class="flex flex-col gap-4">
     <base-input v-model="imeUcenika" :error="errors.imeUcenika">Ime i prezime učenika</base-input>
+    <base-input v-model="brojTelefona1" :error="errors.brojTelefona1">Broj telefona</base-input>
     <base-input v-model="imeRoditelja1" :error="errors.imeRoditelja1">Ime i prezime roditelja/staratelja</base-input>
+    <base-input v-model="brojTelefona2" :error="errors.brojTelefona2">Broj telefona</base-input>
     <base-input v-model="imeRoditelja2" :error="errors.imeRoditelja2">Ime i prezime roditelja/staratelja</base-input>
+    <base-input v-model="brojTelefona3" :error="errors.brojTelefona3">Broj telefona</base-input>
     <date-picker @update-date="updateDate" :error="errors.datum">Datum rođenja</date-picker>
     <multiple-choice v-model="program" :error="errors.program"
                      :values="['Gimnazijski program', 'IB program', 'IT program']">

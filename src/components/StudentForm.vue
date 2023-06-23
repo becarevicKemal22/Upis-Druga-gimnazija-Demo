@@ -201,36 +201,34 @@ function validateForm() {
 </script>
 
 <template>
-  <form @submit.prevent class="flex flex-col gap-4">
-    <base-input v-model="imeUcenika" :error="errors.imeUcenika">Ime i prezime učenika</base-input>
-    <base-input v-model="brojTelefona1" :error="errors.brojTelefona1">Broj telefona</base-input>
-    <base-input v-model="imeRoditelja1" :error="errors.imeRoditelja1">Ime i prezime roditelja/staratelja</base-input>
-    <base-input v-model="brojTelefona2" :error="errors.brojTelefona2">Broj telefona</base-input>
-    <base-input v-model="imeRoditelja2" :error="errors.imeRoditelja2">Ime i prezime roditelja/staratelja</base-input>
-    <base-input v-model="brojTelefona3" :error="errors.brojTelefona3">Broj telefona</base-input>
-    <date-picker @update-date="updateDate" :error="errors.datum">Datum rođenja</date-picker>
-    <multiple-choice v-model="program" :error="errors.program"
-                     :values="['Gimnazijski program', 'IB program', 'IT program']">
-      Izaberite program
-      <template #description>Izaberite program na koji ste se upisali putem EMIS-a</template>
-    </multiple-choice>
-    <nacionalni-smjer-selector :error="errors.smjer" v-if="program === 'Gimnazijski program'"
-                               @update="updateSmjer"></nacionalni-smjer-selector>
-    <vj-d-k-r-selector :error="errors.vjDKR" @update="updateVJDKR"></vj-d-k-r-selector>
-    <jezik-selector :isIB="program === 'IB program'" :error="errors.jezici" v-model="jezici"></jezik-selector>
-    <div class="flex flex-col gap-3 font-open-sans text-gray-500">
-      <p>DSD Program</p>
-      <base-checkbox v-model="dsd">Odaberite ovu opciju ukoliko želite pohađati DSD program.</base-checkbox>
-    </div>
+  <div class="lg:shadow-xl lg:p-10 lg:pb-8 mb-5 lg:rounded-xl lg:overflow-hidden">
+    <form @submit.prevent class="flex flex-col gap-4 p-5">
+      <base-input v-model="imeUcenika" :error="errors.imeUcenika">Ime i prezime učenika</base-input>
+      <base-input v-model="brojTelefona1" :error="errors.brojTelefona1">Broj telefona</base-input>
+      <base-input v-model="imeRoditelja1" :error="errors.imeRoditelja1">Ime i prezime roditelja/staratelja</base-input>
+      <base-input v-model="brojTelefona2" :error="errors.brojTelefona2">Broj telefona</base-input>
+      <base-input v-model="imeRoditelja2" :error="errors.imeRoditelja2">Ime i prezime roditelja/staratelja</base-input>
+      <base-input v-model="brojTelefona3" :error="errors.brojTelefona3">Broj telefona</base-input>
+      <date-picker @update-date="updateDate" :error="errors.datum">Datum rođenja</date-picker>
+      <multiple-choice v-model="program" :error="errors.program"
+                       :values="['Gimnazijski program', 'IB program', 'IT program']">
+        Izaberite program
+        <template #description>Izaberite program na koji ste se upisali putem EMIS-a</template>
+      </multiple-choice>
+      <nacionalni-smjer-selector :error="errors.smjer" v-if="program === 'Gimnazijski program'"
+                                 @update="updateSmjer"></nacionalni-smjer-selector>
+      <vj-d-k-r-selector :error="errors.vjDKR" @update="updateVJDKR"></vj-d-k-r-selector>
+      <jezik-selector :isIB="program === 'IB program'" :error="errors.jezici" v-model="jezici"></jezik-selector>
+      <div class="flex flex-col gap-3 font-open-sans text-gray-500">
+        <p>DSD Program</p>
+        <base-checkbox v-model="dsd">Odaberite ovu opciju ukoliko želite pohađati DSD program.</base-checkbox>
+      </div>
 
-    <base-button @click="submitForm">Prijava</base-button>
-    <base-toast :show="showToast" @close="showToast = false" :variant="toastVariant">
-      {{ toastTitle }}
-      <template #description>{{ toastDescription }}</template>
-    </base-toast>
-  </form>
+      <base-button @click="submitForm" class="mt-5">Prijava</base-button>
+      <base-toast :show="showToast" @close="showToast = false" :variant="toastVariant">
+        {{ toastTitle }}
+        <template #description>{{ toastDescription }}</template>
+      </base-toast>
+    </form>
+  </div>
 </template>
-
-<style scoped>
-
-</style>

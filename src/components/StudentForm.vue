@@ -4,9 +4,9 @@ import BaseInput from "@/components/UI/BaseInput.vue";
 import DatePicker from "@/components/UI/DatePicker.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
 
-import generatePDF from "@/composables/generatePDF";
+import generatePDF from "@/helpers/generatePDF";
 
-import {saveData} from "@/composables/saveData";
+import {saveData} from "@/helpers/saveData";
 
 import {ref, reactive} from "vue";
 import MultipleChoice from "@/components/UI/MultipleChoice.vue";

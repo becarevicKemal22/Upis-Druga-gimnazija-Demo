@@ -96,7 +96,6 @@ const submitForm = async () => {
       "Treci izbor": smjer.value.treci,
     }
   }
-  console.log(data);
   saveData(data);
   generatePDF(data);
   toastTitle.value = "Dobrodošli!";

@@ -18,7 +18,7 @@ const colorClass = computed(() => {
 </script>
 
 <template>
-
+  <teleport to="body">
     <transition>
       <div v-if="show" class="flex gap-2 top-[30px] fixed left-1/2 -translate-x-1/2 w-72 lg:w-fit lg:max-w-lg bg-white shadow-lg items-center rounded-md overflow-hidden">
         <div class="py-5 px-4 flex items-center justify-center" :class="colorClass">
@@ -47,8 +47,7 @@ const colorClass = computed(() => {
         </div>
       </div>
     </transition>
-
-
+  </teleport>
 </template>
 
 <style scoped>

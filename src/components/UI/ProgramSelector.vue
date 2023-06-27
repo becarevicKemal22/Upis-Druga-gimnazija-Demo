@@ -8,7 +8,7 @@ const emit = defineEmits(['update:modelValue']);
 const inputs = reactive([false, false, false]);
 let selectedOption = null;
 let triggeredByOwn = false;
-const values = ['Gimnazijski program', 'IB program', 'IT program'];
+const values = ['Gimnazijski program', 'IB MYP program', 'IT program'];
 
 watch(inputs, () => {
   if(selectedOption === null){
@@ -27,7 +27,6 @@ watch(inputs, () => {
   let index = inputs.findIndex((value, index) => {
     return value === true && index !== selectedOption;
   })
-  console.log(index);
   if(index === -1){
     selectedOption = null;
     return;
@@ -47,7 +46,7 @@ watch(inputs, () => {
     <p class="text-sm text-gray-400">Izaberite jednu opciju</p>
     <base-checkbox v-for="(value, index) in values" :key="value" v-model="inputs[index]">{{ value + ' ' + index }}</base-checkbox>
     <base-checkbox v-model="inputs[0]">Gimnazijski program</base-checkbox>
-    <base-checkbox v-model="inputs[1]">IB program</base-checkbox>
+    <base-checkbox v-model="inputs[1]">IB MYP program</base-checkbox>
     <base-checkbox v-model="inputs[2]">IT program</base-checkbox>
   </div>
 </template>

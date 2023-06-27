@@ -6,5 +6,4 @@ export function saveData(data){
     const noProgram = Object.assign({}, data);
     delete noProgram["Program"];
     set(ref(db, path), noProgram)
-    console.log("Data set successfully");
 }

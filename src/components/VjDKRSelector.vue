@@ -9,10 +9,10 @@ defineProps(['error']);
 const izbor = ref('');
 const izborVjeronauke = ref('');
 
-const opcijeVjeronauka = ['Islamska vjeronauka', 'Katolički vjeronauk', 'Pravoslavna vjeronauka', 'Jevrejska vjeronauka']
+const opcijeVjeronauka = ['Islamska vjeronauka', 'Katolički vjeronauk', 'Pravoslavna vjeronauka', 'Jevrejski vjeronauk']
 
 watch(izbor, () => {
-  if(izbor.value === 'DKR') {
+  if(izbor.value === 'Društvo/kultura/religija') {
     emit('update', izbor.value);
   }
 })
@@ -24,9 +24,9 @@ watch(izborVjeronauke, () => {
 
 <template>
   <div class="flex flex-col gap-3 font-open-sans text-gray-500">
-    <p>Odaberite da li želite da pohađate vjeronauku ili DKR</p>
-    <multiple-choice v-model="izbor" :values="['Vjeronauka', 'DKR']">
-      <template #description>Ukoliko odaberete vjeronauku, biće vam ponuđene dalje opcije</template>
+    <p>Odaberite da li želite da pohađate predmet Vjeronauka ili Društvo/kultura/religija</p>
+    <multiple-choice v-model="izbor" :values="['Vjeronauka', 'Društvo/kultura/religija']">
+      <template #description>Ukoliko odaberete vjeronauku, bit će Vam ponuđene dalje opcije</template>
     </multiple-choice>
     <multiple-choice v-if="izbor === 'Vjeronauka'" v-model="izborVjeronauke" :values="opcijeVjeronauka">
       <template #description>Odaberite koju vjeronauku želite da pohađate</template>

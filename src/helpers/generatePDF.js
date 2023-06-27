@@ -92,21 +92,8 @@ export default function generatePDF(data){
                         decoration: 'underline',
                     }
                 ],
-                margin: [25, 5],
-            },
-            {
-                columns: [
-                    {
-                        width: 50,
-                        text: '3. izbor:',
-                    },
-                    {
-                        text: data["Treci izbor"],
-                        decoration: 'underline',
-                    }
-                ],
                 margin: [25, 5, 25, 20],
-            }
+            },
         )
     }
 
@@ -117,7 +104,7 @@ export default function generatePDF(data){
         },
     )
 
-    if (data["Vjeronauka ili DKR"] !== "DKR") {
+    if (data["Vjeronauka ili DKR"] !== "Društvo/kultura/religija") {
         pdfContent.push(
             {text: "Vjeronauka", bold: true, margin: [25, 5]},
             {text: data["Vjeronauka ili DKR"], margin: [40, 5], decoration: 'underline'},

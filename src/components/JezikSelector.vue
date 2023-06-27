@@ -31,15 +31,12 @@ const jezici = computed(() => {
       'Turski',
       'Talijanski',
       'Francuski',
-      'Arapski',
     ]
   }else{
     return [
       'Njemački',
-      'Turski',
       'Talijanski',
       'Francuski',
-      'Arapski',
     ]
   }
 })
@@ -52,7 +49,7 @@ watch(inputs, () => {
 
 <template>
   <div class="flex flex-col gap-3 font-open-sans text-gray-500">
-    <p>Odaberite {{ isIB ? '' : 'prvi i' }} drugi strani jezik</p>
+    <p>Odaberite {{ isIB ? '' : 'prvi i' }} drugi strani jezik {{ isIB ? '(onaj koji ste izučavali u osnovnoj školi)' : '(one koje ste izučavali u osnovnoj školi)' }}</p>
     <multiple-choice v-if="!isIB" v-model="inputs[0]" :values="jezici">
       <template #description>Prvi strani jezik</template>
     </multiple-choice>

@@ -93,7 +93,6 @@ const submitForm = async () => {
       ...data,
       "Prvi izbor": smjer.value.prvi,
       "Drugi izbor": smjer.value.drugi,
-      "Treci izbor": smjer.value.treci,
     }
   }
   saveData(data);
@@ -202,25 +201,31 @@ function validateForm() {
 <template>
   <div class="lg:shadow-xl lg:p-10 lg:pb-8 mb-5 lg:rounded-xl lg:overflow-hidden">
     <form @submit.prevent class="flex flex-col gap-4 p-5">
-      <base-input v-model="imeUcenika" :error="errors.imeUcenika">Ime i prezime učenika</base-input>
-      <base-input v-model="brojTelefona1" :error="errors.brojTelefona1">Broj telefona</base-input>
-      <base-input v-model="imeRoditelja1" :error="errors.imeRoditelja1">Ime i prezime roditelja/staratelja</base-input>
-      <base-input v-model="brojTelefona2" :error="errors.brojTelefona2">Broj telefona</base-input>
-      <base-input v-model="imeRoditelja2" :error="errors.imeRoditelja2">Ime i prezime roditelja/staratelja</base-input>
-      <base-input v-model="brojTelefona3" :error="errors.brojTelefona3">Broj telefona</base-input>
-      <date-picker @update-date="updateDate" :error="errors.datum">Datum rođenja</date-picker>
+      <base-input v-model="imeUcenika" :error="errors.imeUcenika">Ime i prezime učenika/ce</base-input>
+      <base-input v-model="brojTelefona1" :error="errors.brojTelefona1">Broj telefona učenika/ce</base-input>
+      <base-input v-model="imeRoditelja1" :error="errors.imeRoditelja1">Ime i prezime roditelja/staratelja (1)
+      </base-input>
+      <base-input v-model="brojTelefona2" :error="errors.brojTelefona2">Br. telefona roditelja/staratelja (1)
+      </base-input>
+      <base-input v-model="imeRoditelja2" :error="errors.imeRoditelja2">Ime i prezime roditelja/staratelja (2)
+      </base-input>
+      <base-input v-model="brojTelefona3" :error="errors.brojTelefona3">Br. telefona roditelja/staratelja (2)
+      </base-input>
+      <date-picker @update-date="updateDate" :error="errors.datum">Datum rođenja učenika/ce</date-picker>
       <multiple-choice v-model="program" :error="errors.program"
-                       :values="['Gimnazijski program', 'IB program', 'IT program']">
+                       :values="['Gimnazijski program', 'IB MYP program', 'IT program']">
         Izaberite program
-        <template #description>Izaberite program na koji ste se upisali putem EMIS-a</template>
+        <template #description>Izaberite program na koji ste se upisali putem EMIS-a.</template>
       </multiple-choice>
       <nacionalni-smjer-selector :error="errors.smjer" v-if="program === 'Gimnazijski program'"
                                  @update="updateSmjer"></nacionalni-smjer-selector>
       <vj-d-k-r-selector :error="errors.vjDKR" @update="updateVJDKR"></vj-d-k-r-selector>
-      <jezik-selector :isIB="program === 'IB program'" :error="errors.jezici" v-model="jezici"></jezik-selector>
+      <jezik-selector :isIB="program === 'IB MYP program'" :error="errors.jezici" v-model="jezici"></jezik-selector>
       <div class="flex flex-col gap-3 font-open-sans text-gray-500">
         <p>DSD Program</p>
-        <base-checkbox v-model="dsd">Odaberite ovu opciju ukoliko želite pohađati DSD program.</base-checkbox>
+        <base-checkbox v-model="dsd"><p>Odaberite ovu opciju ukoliko želite pohađati <a
+            href="https://www.2gimnazija.edu.ba/en/nacionalni-program/dsd-program-en" class="text-blue-800 underline underline-offset-1">DSD</a> program (ovim odabirom se kvalificirate da možete pristupiti ulaznom testu za DSD (intenzivni njemači jezik) program u septembru). </p>
+        </base-checkbox>
       </div>
 
       <base-button @click="submitForm" class="mt-5">Prijava</base-button>

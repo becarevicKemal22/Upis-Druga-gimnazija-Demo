@@ -26,17 +26,17 @@ watch(() => props.isIB, (value, oldValue) => {
 const jezici = computed(() => {
   if(!props.isIB){
     return [
-      'Engleski',
-      'Njemački',
-      'Turski',
-      'Talijanski',
-      'Francuski',
+      'English',
+      'German',
+      'Turkish',
+      'Italian',
+      'French',
     ]
   }else{
     return [
-      'Njemački',
-      'Talijanski',
-      'Francuski',
+      'German',
+      'Italian',
+      'French',
     ]
   }
 })
@@ -49,12 +49,12 @@ watch(inputs, () => {
 
 <template>
   <div class="flex flex-col gap-3 font-open-sans text-gray-500">
-    <p>Odaberite {{ isIB ? '' : 'prvi i' }} drugi strani jezik {{ isIB ? '(onaj koji ste izučavali u osnovnoj školi)' : '(one koje ste izučavali u osnovnoj školi)' }}</p>
+    <p>Choose the {{ isIB ? '' : 'first and' }} second foreign language {{ isIB ? '(the one you studied in elementary school)' : '(the ones you studied in elementary school)' }}</p>
     <multiple-choice v-if="!isIB" v-model="inputs[0]" :values="jezici">
-      <template #description>Prvi strani jezik</template>
+      <template #description>First foreign language</template>
     </multiple-choice>
     <multiple-choice v-model="inputs[1]" :values="jezici">
-      <template #description>Drugi strani jezik</template>
+      <template #description>Second foreign language</template>
     </multiple-choice>
     <p v-if="error" class="text-sm font-open-sans font-light text-red-500">{{error}}</p>
   </div>

@@ -8,7 +8,7 @@ export default function generatePDF(data){
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
-    const dateString = `Datum: ${day}.${month}.${year}. godine`;
+    const dateString = `Date: ${day}.${month}.${year}`;
     const schoolYear = `${year}/${year + 1}`;
 
     const rodString = data["Ime roditelja 1"] + '      ' + data["Ime roditelja 2"];
@@ -16,13 +16,13 @@ export default function generatePDF(data){
     let pdfContent = [
         {text: dateString, margin: [2, 10]},
         {
-            text: "OBAVEZAN ANKETNI LIST ZA UPIS U JU DRUGA GIMNAZIJA SARAJEVO",
+            text: "DEMO ENROLLMENT FORM",
             alignment: 'center',
             bold: true,
             fontSize: 24,
             margin: [2, 15]
         },
-        {text: "Za učenike i roditelje/staratelje", alignment: 'center', margin: [2, 0, 2, 30]},
+        {text: "For students and parents", alignment: 'center', margin: [2, 0, 2, 30]},
         {
             columns: [
                 {
@@ -47,7 +47,7 @@ export default function generatePDF(data){
             columns: [
                 {
                     width: '30%',
-                    text: '(ime i prezime učenika)',
+                    text: "(student's name and surname)",
                     alignment: 'center',
                     margin: [10, 10, 10, 20],
                 },
@@ -57,7 +57,7 @@ export default function generatePDF(data){
                 },
                 {
                     width: '50%',
-                    text: '(imena i prezimena roditelja/staratelja)',
+                    text: "(parents' names and surnames)",
                     alignment: 'center',
                     margin: [10, 10, 10, 20],
                 },
@@ -65,14 +65,14 @@ export default function generatePDF(data){
         },
     ];
 
-    if (data["Program"] === "Gimnazijski program") {
+    if (data["Program"] === "Gymnasium program") {
         pdfContent.push(
-            {text: 'Izabrana izborna područja:', margin: [10, 15, 10, 5]},
+            {text: 'Selected departments: ', margin: [10, 15, 10, 5]},
             {
                 columns: [
                     {
                         width: 50,
-                        text: '1. izbor:',
+                        text: 'First choice:',
                     },
                     {
                         text: data["Prvi izbor"],
@@ -85,7 +85,7 @@ export default function generatePDF(data){
                 columns: [
                     {
                         width: 50,
-                        text: '2. izbor:',
+                        text: 'Second choice:',
                     },
                     {
                         text: data["Drugi izbor"],
@@ -99,14 +99,14 @@ export default function generatePDF(data){
 
     pdfContent.push(
         {
-            text: `Učenik/učenica prvog razreda srednje škole, od školske ${schoolYear}. godine kao izborno-obavezni predmet pohađa nastavni predmet`,
+            text: `The student of the first class of high school, as of school year ${schoolYear}, as a mandatory elective subject, chooses:`,
             margin: [10, 20, 10, 10]
         },
     )
 
     if (data["Vjeronauka ili DKR"] !== "Društvo/kultura/religija") {
         pdfContent.push(
-            {text: "Vjeronauka", bold: true, margin: [25, 5]},
+            {text: "Religion classes", bold: true, margin: [25, 5]},
             {text: data["Vjeronauka ili DKR"], margin: [40, 5], decoration: 'underline'},
         )
     } else {
@@ -116,15 +116,15 @@ export default function generatePDF(data){
     }
 
     pdfContent.push(
-        {text: 'Izabrani strani jezici:', margin: [10, 15, 10, 5]},
+        {text: 'Chosen foreign languages:', margin: [10, 15, 10, 5]},
         {
             columns: [
                 {
                     width: 100,
-                    text: 'Prvi strani jezik:',
+                    text: 'First foreign language:',
                 },
                 {
-                    text: data["Prvi strani jezik"] + ' jezik',
+                    text: data["Prvi strani jezik"] + ' language',
                     decoration: 'underline',
                 }
             ],
@@ -134,10 +134,10 @@ export default function generatePDF(data){
             columns: [
                 {
                     width: 100,
-                    text: 'Drugi strani jezik:',
+                    text: 'Second foreign language:',
                 },
                 {
-                    text: data["Drugi strani jezik"] + ' jezik',
+                    text: data["Drugi strani jezik"] + ' language',
                     decoration: 'underline',
                 }
             ],
@@ -147,10 +147,10 @@ export default function generatePDF(data){
 
     pdfContent.push(
         {
-            text: `Učenik prvog razreda Druge gimnazije Sarajevo, od školske ${schoolYear}. godine pohađa nastavni predmet Intenzivni njemački jezik – DSD`,
+            text: `The student of the first class of the Second gymnasium of Sarajevo, as of school year ${schoolYear}, attends the classes of the subject: DSD`,
             margin: [10, 20, 10, 10]
         },
-        {text: `${data["DSD"] ? 'DA' : 'NE'}`, alignment: 'center', decoration: 'underline', bold: true}
+        {text: `${data["DSD"] ? 'YES' : 'NO'}`, alignment: 'center', decoration: 'underline', bold: true}
     )
 
     pdfContent.push(
@@ -158,13 +158,13 @@ export default function generatePDF(data){
             columns: [
                 {
                     width: '50%',
-                    text: '(ime i prezime učenika)',
+                    text: "Student's signature",
                     decoration: 'overline',
                     alignment: 'left',
                 },
                 {
                     width: '50%',
-                    text: '(ime i roditelja/staratelja)',
+                    text: "Parent's signature",
                     decoration: 'overline',
                     alignment: 'right',
                 },
@@ -176,7 +176,7 @@ export default function generatePDF(data){
     pdfMake.createPdf({
         content: pdfContent,
         info: {
-            title: 'Prijava',
+            title: 'Enrollment form',
         },
-    }).download('prijava.pdf');
+    }).download('Enrollment form.pdf');
 }

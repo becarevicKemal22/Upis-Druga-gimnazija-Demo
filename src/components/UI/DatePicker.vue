@@ -63,7 +63,7 @@ const godina = ref(0);
       <span class="text-blue-500">/</span>
       <input type="text" ref="godina" id="godina" @blur="updateDate" @keyup.delete="handleBackspace" maxlength="4"
              class="p-1 border-0 focus:ring-0 text-sm w-14 text-center text-gray-600 rounded-sm"
-             placeholder="gggg">
+             placeholder="yyyy">
     </div>
     <p v-if="error" class="text-sm font-open-sans font-light text-red-500">{{error}}</p>
   </div>

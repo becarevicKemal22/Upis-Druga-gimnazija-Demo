@@ -9,12 +9,12 @@ defineProps(['error'])
 const inputs = reactive([]);
 
 const options = [
-  'Matematičko-informatički smjer',
-  'Jezičko područje',
-  'Prirodno područje',
-  'Društveno područje',
-  'Opća gimnazija',
-  'Dvojezično/bilingvalno područje'
+  'Department of mathematics and informatics',
+  'Department of languages',
+  'Department of natural sciences',
+  'Department of social sciences',
+  'Gymnasium',
+  'Bilingual department'
 ]
 
 const links = [
@@ -37,14 +37,14 @@ watch(inputs, () => {
 
 <template>
   <div class="flex flex-col gap-3 font-open-sans text-gray-500">
-    <p>Izaberite svoja 2 izbora za smjer na gimnazijskom programu</p>
-    <p class="text-sm text-gray-400">Klikom na bilo koji od ponuđenih područja će Vam dati više informacija o tom području -
+    <p>Pick your two choices for the Gymnasium program</p>
+    <p class="text-sm text-gray-400">You can get additional information about each of the departments by clicking on their names -
       <a href="https://drive.google.com/file/d/1_gnlYni4DSu_6Exa1uzy0qPj_QdCUCjG/view?usp=sharing" class="text-blue-800 underline underline-offset-1"> NPP</a></p>
     <multiple-choice :values="options" :links="links" v-model="inputs[0]" >
-      <template #description>1. izbor</template>
+      <template #description>First choice</template>
     </multiple-choice>
     <multiple-choice :values="options" :links="links" v-model="inputs[1]" >
-      <template #description>2. izbor</template>
+      <template #description>Second choice</template>
     </multiple-choice>
     <p v-if="error" class="text-sm font-open-sans font-light text-red-500">{{ error }}</p>
   </div>

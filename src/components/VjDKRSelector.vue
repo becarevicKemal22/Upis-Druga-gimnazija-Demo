@@ -9,7 +9,7 @@ defineProps(['error']);
 const izbor = ref('');
 const izborVjeronauke = ref('');
 
-const opcijeVjeronauka = ['Islamska vjeronauka', 'Katolički vjeronauk', 'Pravoslavna vjeronauka', 'Jevrejski vjeronauk']
+const opcijeVjeronauka = ['Islamic classes', 'Catholic classes', 'Orthodox classes', 'Jewish classes'];
 
 watch(izbor, () => {
   if(izbor.value === 'Društvo/kultura/religija') {
@@ -24,12 +24,12 @@ watch(izborVjeronauke, () => {
 
 <template>
   <div class="flex flex-col gap-3 font-open-sans text-gray-500">
-    <p>Odaberite da li želite da pohađate predmet Vjeronauka ili Društvo/kultura/religija</p>
-    <multiple-choice v-model="izbor" :values="['Vjeronauka', 'Društvo/kultura/religija']">
-      <template #description>Ukoliko odaberete vjeronauku, bit će Vam ponuđene dalje opcije</template>
+    <p>Choose if you want to attend religion classes or "Društvo/kultura/religija"</p>
+    <multiple-choice v-model="izbor" :values="['Religion classes', 'Društvo/kultura/religija']">
+      <template #description>If you choose religion classes, you will be given more options.</template>
     </multiple-choice>
-    <multiple-choice v-if="izbor === 'Vjeronauka'" v-model="izborVjeronauke" :values="opcijeVjeronauka">
-      <template #description>Odaberite koju vjeronauku želite da pohađate</template>
+    <multiple-choice v-if="izbor === 'Religion classes'" v-model="izborVjeronauke" :values="opcijeVjeronauka">
+      <template #description>Choose which religion classes you wish to attend</template>
     </multiple-choice>
     <p v-if="error" class="text-sm font-open-sans font-light text-red-500">{{error}}</p>
   </div>
